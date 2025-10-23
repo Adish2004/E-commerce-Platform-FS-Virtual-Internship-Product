@@ -1,0 +1,37 @@
+<nav class="navbar-container">
+  <div class="navbar-logo">
+    <a routerLink="/">EcoFy</a>
+  </div>
+
+  <ul class="navbar-links">
+    <li><a routerLink="/">Home</a></li>
+
+    <!-- Cart for regular users only -->
+    <li *ngIf="isLoggedIn && !isAdmin">
+      <a routerLink="/cart">
+        Cart <span class="navbar-cart-count">{{ cartCount }}</span>
+      </a>
+    </li>
+
+    <!-- Admin link for admin users -->
+    <li *ngIf="isLoggedIn && isAdmin">
+      <a routerLink="/adminlist">Admin</a>
+    </li>
+
+    <!-- If user is logged in -->
+    <ng-container *ngIf="isLoggedIn; else guestLinks">
+      <li><a (click)="logout()" class="navbar-logout">Logout</a></li>
+      <li>
+        <a routerLink="/profile" class="navbar-profile">
+          <mat-icon>account_circle</mat-icon>
+        </a>
+      </li>
+    </ng-container>
+
+    <!-- If user is NOT logged in -->
+    <ng-template #guestLinks>
+      <li><a routerLink="/login">Login</a></li>
+      <li><a routerLink="/signup">Sign Up</a></li>
+    </ng-template>
+  </ul>
+</nav>

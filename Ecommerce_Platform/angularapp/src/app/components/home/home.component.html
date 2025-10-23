@@ -1,0 +1,44 @@
+<div class="home-container">
+  <h2 class="home-title">Our Products</h2>
+
+  <!-- Filters Section -->
+  <div class="home-filters">
+    <input type="text" placeholder="Search product..." [(ngModel)]="searchTerm" (input)="applyFilters()" class="home-search">
+
+    <select [(ngModel)]="sortOrder" (change)="applyFilters()" class="home-sort">
+      <option value="">Sort by Price</option>
+      <option value="asc">Low → High</option>
+      <option value="desc">High → Low</option>
+    </select>
+
+    <input type="number" placeholder="Min Price" [(ngModel)]="minPrice" (input)="applyFilters()" class="home-min-price">
+    <input type="number" placeholder="Max Price" [(ngModel)]="maxPrice" (input)="applyFilters()" class="home-max-price">
+
+    <button class="home-reset" (click)="resetFilters()">Reset</button>
+  </div>
+
+  <!-- Products List -->
+  <div class="home-products">
+    <div class="home-product-card" *ngFor="let product of paginatedProducts">
+      <img [src]="product.image || 'assets/products/default.jpg'" alt="{{product.name}}" class="home-product-image">
+      <h3 class="home-product-name">{{product.name}}</h3>
+      <p class="home-product-description">{{product.description}}</p>
+      <p class="home-product-price">₹{{product.price}}</p>
+      <button class="home-add-to-cart" (click)="addToCart(product)">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="home-pagination" *ngIf="totalPages > 1">
+    <button class="home-pagination-btn" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">« Prev</button>
+    
+    <button class="home-pagination-btn" 
+            *ngFor="let page of pages"
+            (click)="goToPage(page)"
+            [class.home-active]="page === currentPage">
+      {{ page }}
+    </button>
+    
+    <button class="home-pagination-btn" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next »</button>
+  </div>
+</div>

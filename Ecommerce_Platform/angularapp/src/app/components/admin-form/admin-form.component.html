@@ -1,0 +1,44 @@
+<div class="admin-container">
+  <h2 class="admin-title">✏️ Edit Product</h2>
+
+  <form (ngSubmit)="updateProduct()" enctype="multipart/form-data">
+    <div class="admin-input-row">
+      <div class="admin-input-group">
+        <label>Name</label>
+        <input [(ngModel)]="product.name" name="name" required />
+      </div>
+
+      <div class="admin-input-group">
+        <label>Description</label>
+        <input [(ngModel)]="product.description" name="description" required />
+      </div>
+
+      <div class="admin-input-group">
+        <label>Price</label>
+        <input type="number" [(ngModel)]="product.price" name="price" required />
+      </div>
+
+      <div class="admin-input-group">
+        <label>Stock</label>
+        <input type="number" [(ngModel)]="product.stock" name="stock" required />
+      </div>
+
+      <div class="admin-input-group">
+        <label>Sales Count</label>
+        <input type="number" [(ngModel)]="product.salesCount" name="salesCount" required />
+      </div>
+
+      <!-- File Upload -->
+      <div class="admin-input-group">
+        <label>Upload Image</label>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+        <img *ngIf="previewImage" [src]="previewImage" width="100" />
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button type="submit">Update Product</button>
+      <button type="button" (click)="router.navigate(['/adminlist'])">Cancel</button>
+    </div>
+  </form>
+</div>
